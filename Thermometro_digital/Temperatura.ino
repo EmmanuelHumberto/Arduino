@@ -1,54 +1,55 @@
-#include <Thermistor.h> 
+#include <max6675.h>
+/*====================================================*/
 
-/*Função exibe a temperaatura medida em graus celsius 
-e temperatura programada para alerta; caso (temperatura<=prog) 
-se (temperatura>prog)imprime texto de alerta e coloca o pino 7 em nivel baixo LOW.*/
+int thermoDO = 10;
+int thermoCS = 12;
+int thermoCLK = 13;
+int i = 0;
+/*====================================================*/
 
-
- 
-void temperaturam(){
-
-/*Converte o valor de tensão em temperatura utlizando parametros da biblioteca*/
-int temperatura = temp.getTemp(); 
-
-if(&temperatura>&tempop){
-  digitalWrite(11, LOW);  
-  delay(500);   
-           
-  lcd.clear ();
-  lcd.setCursor(2,0);
-  lcd.print ("ALERTA TEMP.:");
-  lcd.setCursor (0,1); 
-  delay(400);
+//### MedirTemperatura ###
+float medirTemperatura  ( float temperatura ) 
+{
+  MAX6675 thermocouple(thermoCLK, thermoCS, thermoDO);
+  temperatura = thermocouple.readCelsius();
+  verificaLeituraSenssor ( temperatura );
+  processaTemperatura ( temperatura, temperaturaProgramada );
+  return temperatura;
+  }
+/*====================================================*/
   
-  lcd.print ("LIMITE EXCEDIDO:");
-  delay(1000);
-  lcd.clear (); 
-  lcd.setCursor (0,1); 
-  lcd.print ("EM:");
-  lcd.setCursor (3,1);
-  delay (1000); 
-  
-  lcd.print (&temperatura-&tempop);
-  lcd.setCursor (5,1); 
-  lcd.print ("C");
-  delay (1500); 
+// ### verificaLeituraSenssor ###
+void verificaLeituraSenssor(float temperatura ) 
+{
+  if ( isnan ( temperatura ) ) {
+    lcd.clear();
+    lcd.setCursor ( 0, 0 );
+    lcd.print( "Falha sensor DHT!" );
+    delay ( 1000 );
+  }
 }
-else{
- digitalWrite(11, HIGH); 
-  lcd.clear (); 
-  lcd.setCursor (0,0); 
-  lcd.print ("Temperatura:"); 
-  lcd.setCursor (0,1); 
-  lcd.print ("Alerta:"); 
-  lcd.setCursor (12,1); 
-  lcd.print (tempop); 
-  lcd.setCursor (15,1); 
-  lcd.print ("C");
-  lcd.setCursor (12,0); 
-  lcd.print (temperatura);
-  lcd.setCursor (15,0); 
-  lcd.print ("C");
-  delay (500); 
-  }  
+/*====================================================*/
+
+// ### mostrar temperatura ###
+void mostrarTeperatura() 
+{
+  for ( ; ; ) 
+  {
+   if ( digitalRead ( switchPin ) == LOW )
+   {
+    botaoSair();
+    break;
+   }
+   else medirTemperatura ( temperatura );
+  }
+  menu();
 }
+/*====================================================*/
+
+// ### processa a temperatura ###
+float processaTemperatura ( float temperatura, float temperaturaProgramada ) 
+{
+  if ( temperatura < temperaturaProgramada ) msgTemperatura ( temperatura, temperaturaProgramada );
+  else msgAlerta ( temperatura, temperaturaProgramada );
+}
+/*====================================================*/
