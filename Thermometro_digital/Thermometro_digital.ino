@@ -41,6 +41,7 @@ float temperaturaProgramada= String ( prog ) . toInt();
 /*------------------------------------------------------------------------------*/
 /*Variavel para acionamento do rele*/
 int comando= A1;
+int rele = A2;
 /*------------------------------------------------------------------------------*/
 /*Variavel recebe valor do teclado*/
 String progtemp;
@@ -61,16 +62,13 @@ void setup()
   digitalWrite ( switchPin, HIGH );    
   lcd.init(); 
   lcd.setBacklight ( HIGH );
+  pinMode(comando, OUTPUT);
+  digitalWrite ( comando, LOW ); 
+  pinMode(rele, OUTPUT);
+  digitalWrite ( rele, HIGH ); 
   logo();
   delay(1000);
-  
-  if (isnan(temperatura)) 
-  {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Falha sensor DHT!");
-    return;
-  }
+  verificaLeituraSenssor(temperatura);
   programatemperatura();
 }
 /*====================================================*/

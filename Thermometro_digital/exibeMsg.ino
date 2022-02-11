@@ -1,7 +1,8 @@
 
 float msgAlerta(float temperatura, float temperaturaProgramada)
 {
-    digitalWrite(comando, LOW);  
+    digitalWrite(comando, HIGH); 
+    digitalWrite ( rele, LOW );  
     delay(1500);   
     lcd.clear ();
     lcd.setCursor(2,0);
@@ -27,7 +28,8 @@ float msgAlerta(float temperatura, float temperaturaProgramada)
 
 float msgTemperatura (float temperatura, float temperaturaProgamada)
 { 
-    digitalWrite(comando, HIGH); 
+    digitalWrite(comando, LOW); 
+    digitalWrite ( rele, HIGH);  
     lcd.clear (); 
     lcd.setCursor (0,0); 
     lcd.print ("Temp.: "); 
