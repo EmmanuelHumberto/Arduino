@@ -1,5 +1,4 @@
-void enter()
-{
+void enter(){
    lcd.clear();
    if ( prog == progtemp ) salvaTempAlerta () ;
    else lcd.print ( "Disgrama" ) ;

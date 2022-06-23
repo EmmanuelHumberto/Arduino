@@ -2,7 +2,7 @@
      o valor dentro switchPin irá para nivel baixo = 0V
      o pull-up mantém o pino em HIGH internamente
     */
-void botaoSair(){
+void botaoSair() {
       running = ! running;
       digitalWrite ( LEDpin, running );
       sair();

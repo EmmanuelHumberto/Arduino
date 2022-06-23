@@ -1,6 +1,5 @@
 
-float msgAlerta(float temperatura, float temperaturaProgramada)
-{
+float msgAlerta(float temperatura, float temperaturaProgramada) {
     digitalWrite(comando, HIGH); 
     digitalWrite ( rele, LOW );  
     delay(1500);   
@@ -20,14 +19,10 @@ float msgAlerta(float temperatura, float temperaturaProgramada)
     lcd.setCursor (11,1);
     lcd.print ("C");
     delay (100);
-    
     return temperatura;
-    
 }
 /*====================================================*/
-
-float msgTemperatura (float temperatura, float temperaturaProgamada)
-{ 
+float msgTemperatura (float temperatura, float temperaturaProgamada){ 
     digitalWrite(comando, LOW); 
     digitalWrite ( rele, HIGH);  
     lcd.clear (); 
@@ -44,33 +39,22 @@ float msgTemperatura (float temperatura, float temperaturaProgamada)
     lcd.setCursor (15,0); 
     lcd.print ("C");
     delay (500); 
-
     return temperatura;
 }
 /*====================================================*/
-
 void menu(){
-
    programatemperatura();
-
 }
-
 /*====================================================*/
-
 void logo(){
-  
   lcd.clear(); 
   lcd.setCursor(5,0);
   lcd.print("LIGADO IOT");
   lcd.scrollDisplayRight();
   delay(1000);
-  }
-  
-  /*====================================================*/
-
+}
+    /*====================================================*/
   void inicio(){
-
-   
    lcd.setCursor (0,0); 
    lcd.print ("Tecle '#' para"); 
    lcd.setCursor (0,1); 
@@ -82,13 +66,9 @@ void logo(){
    lcd.setCursor (0,1); 
    lcd.print("Temperatura.:");
    delay(1500);
-
 }
-
 /*====================================================*/
-
 void sair(){
-  
     lcd.clear();
     lcd.setCursor (0,0); 
     lcd.print("SAINDO. ");
@@ -96,22 +76,16 @@ void sair(){
     lcd.print("Aguarde... ");
     delay(4000);
 }
-
 /*====================================================*/
-
 void salvaTempAlerta(){
-  
    lcd.setCursor (0,0); 
    lcd.print("A temperatura");
    delay(1200);
    lcd.setCursor (0,1); 
    lcd.print("foi salva");
    delay(3500);
-   
 }
-
 /*====================================================*/
-
 void finalizaPrograma(){
   lcd.clear ();
   lcd.setCursor(0,0);

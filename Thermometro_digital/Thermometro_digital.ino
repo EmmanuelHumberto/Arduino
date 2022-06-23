@@ -4,7 +4,6 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 /*====================================================*/
-
 /*Inicializa o display no endereco 0x27*/
 LiquidCrystal_I2C lcd ( 0x27, 16, 2 );
 /*-------------------------------------------------------------------------------------*/
@@ -12,7 +11,6 @@ LiquidCrystal_I2C lcd ( 0x27, 16, 2 );
 const byte ROWS = 4; 
 /*Keypad 4 colunas*/
 const byte COLS = 4; // Keypad 4 colunas
-
 /*definição dos caracteres do Keypad*/
 char hexaKeys [ ROWS ][ COLS ] = 
 {
@@ -21,14 +19,11 @@ char hexaKeys [ ROWS ][ COLS ] =
 {'7', '8', '9', 'C'},
 {'*', '0', '#', 'D'} 
 };
-
 /*portas D3 a D6 => linhas do Keypad*/
 byte rowPins [ ROWS ] = { 2, 3, 4, 5 }; 
 /*portas D7 a D10 => colunas do Keypad*/
 byte colPins [ COLS ] = { 6,7,8,9 }; 
-
 /*-------------------------------------------------------------------------------------*/
-
 /*inicializa o Keypad*/
 Keypad teclado = Keypad( makeKeymap( hexaKeys ), rowPins, colPins, ROWS, COLS ); 
 /*------------------------------------------------------------------------------*/
@@ -54,9 +49,7 @@ int  LEDpin = 2;
 /* botão conectado ao pino 13 e o outro terminal ao ground*/
 int  switchPin = 11;   
 /*====================================================*/
-
-void setup()
-{
+void setup() {
   pinMode( LEDpin, OUTPUT );
   pinMode( switchPin, INPUT_PULLUP );
   digitalWrite ( switchPin, HIGH );    
@@ -72,16 +65,11 @@ void setup()
   programatemperatura();
 }
 /*====================================================*/
-
-void loop(){
-
+void loop() {
 char tecla = teclado.getKey(); 
-  
- switch(tecla)
- {
+   switch(tecla) {
     //caso alguma das teclas imprimíveis foi pressionada
-    if(tecla)
-    {
+    if(tecla) {
       case '0':
       case '1':
       case '2':
@@ -93,20 +81,15 @@ char tecla = teclado.getKey();
       case '8':
       case '9':
       case '*':
-      
       tecladotemp(tecla);
       break;
- /*-------------------------------------------------------------------------------------*/
       case 'A':
         lcd.clear();
         menu();
-
       case '#':
         enter();
         break;
-        
-/*-------------------------------------------------------------------------------------*/
+    }
   }
- }
 }
  
